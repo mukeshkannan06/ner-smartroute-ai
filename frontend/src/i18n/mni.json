@@ -1,0 +1,66 @@
+{
+  "app": {
+    "title": "NER ꯁ꯭ꯃꯥꯔ꯭ꯠꯔꯨꯠ AI",
+    "subtitle": "ꯑꯋꯥꯡ ꯅꯣꯡꯄꯣꯛ ꯚꯥꯔꯠꯀꯤ ꯗꯤꯖꯤꯇꯦꯜ ꯃꯣꯕꯤꯂꯤꯇꯤ ꯇ꯭ꯋꯤꯟ ꯑꯃꯁꯨꯡ ꯂꯝꯕꯤ ꯄꯥꯅꯕ",
+    "live_status": "ꯑꯦꯛꯇꯤꯚ",
+    "data_mode_notice": "GIS ꯒ꯭ꯔꯥꯐ ꯑꯃꯁꯨꯡ ML ꯃꯣꯗꯦꯂꯁꯤꯡ ꯂꯥꯏꯚ ꯑꯣꯏꯅꯥ ꯍꯤꯁꯥꯕ ꯇꯧꯏ।"
+  },
+  "nav": {
+    "dashboard": "ꯗꯦꯁꯕꯣꯔ꯭ꯗ",
+    "smart_routes": "ꯂꯝꯕꯤ ꯄꯥꯅꯕ",
+    "digital_twin": "ꯗꯤꯖꯤꯇꯦꯜ ꯇ꯭ꯋꯤꯟ",
+    "government": "ꯂꯩꯉꯥꯛꯀꯤ ꯄꯥꯎꯗꯝ",
+    "incidents": "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯌꯦꯡꯁꯤꯅꯕ",
+    "settings": "ꯁꯦꯇꯤꯡꯁ"
+  },
+  "planner": {
+    "title": "ꯁ꯭ꯃꯥꯔ꯭ꯠ ꯂꯝꯕꯤ ꯄꯥꯅꯕ",
+    "subtitle": "ꯅꯣꯡꯖꯨ-ꯅꯨꯡꯁꯤꯠ, ꯂꯝꯕꯤ ꯐꯤꯚꯝ ꯑꯃꯁꯨꯡ ꯈꯨꯗꯣꯡꯊꯤꯕ ꯍꯤꯁꯥꯕ",
+    "origin": "ꯍꯧꯔꯛꯐꯝ ꯁꯍꯔ",
+    "destination": "ꯌꯧꯒꯗꯕ ꯁꯍꯔ",
+    "vehicle_type": "ꯒꯥꯔꯤ ꯃꯈꯜ",
+    "cargo": "ꯄꯣꯠꯂꯝ",
+    "weight": "ꯑꯔꯨꯝꯕ (ꯇꯟ)",
+    "monsoon": "ꯅꯣꯡꯖꯨ ꯃꯇꯝ",
+    "peak_hour": "ꯇ꯭ꯔꯥꯐꯤꯛ ꯃꯇꯝ",
+    "find_route": "ꯑꯐꯕ ꯂꯝꯕꯤ ꯊꯤꯕ",
+    "calculating": "ꯍꯤꯁꯥꯕ ꯇꯧꯔꯤ...",
+    "recommended": "ꯄꯔꯥꯃꯔ꯭ꯁ ꯇꯧꯔꯕ ꯂꯝꯕꯤ",
+    "alternate": "ꯑꯇꯣꯞꯄ ꯂꯝꯕꯤ",
+    "distance": "ꯑꯔꯥꯞꯄ",
+    "eta": "ꯃꯇꯝ",
+    "risk": "ꯈꯨꯗꯣꯡꯊꯤꯕ",
+    "accessibility": "ꯆꯪꯁꯤꯅꯕ ꯌꯥꯕ",
+    "cost": "ꯃꯃꯜ",
+    "no_route": "ꯂꯝꯕꯤ ꯐꯪꯗ꯭ꯔꯦ।"
+  },
+  "twin": {
+    "title": "ꯗꯤꯖꯤꯇꯦꯜ ꯃꯣꯕꯤꯂꯤꯇꯤ ꯇ꯭ꯋꯤꯟ",
+    "subtitle": "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯁꯤꯃꯨꯂꯦꯁꯟ ꯑꯃꯁꯨꯡ ꯑꯇꯣꯞꯄ ꯂꯝꯕꯤ ꯄꯥꯅꯕ",
+    "select_road": "ꯍꯥꯏꯋꯦ ꯂꯝꯕꯤ",
+    "disruption_type": "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯃꯈꯜ",
+    "simulate_btn": "ꯁꯤꯃꯨꯂꯦꯠ ꯇꯧꯕ",
+    "reopen_all": "ꯂꯝꯕꯤ ꯄꯨꯝꯅꯃꯛ ꯍꯥꯡꯗꯣꯀꯎ",
+    "affected_shipments": "ꯁꯣꯛꯍꯜꯂꯕ ꯄꯣꯠꯂꯝ",
+    "impact_report": "ꯄꯥꯎꯗꯝ",
+    "accessibility_loss": "ꯂꯝꯕꯤ ꯍꯟꯊꯕ",
+    "reroute_status": "ꯑꯅꯧꯕ ꯂꯝꯕꯤ ꯐꯪꯂꯦ"
+  },
+  "gov": {
+    "title": "NER ꯂꯩꯉꯥꯛꯀꯤ ꯑꯣꯄꯔꯦꯁꯟ ꯗꯦꯁꯕꯣꯔ꯭ꯗ",
+    "accessibility_index": "ꯂꯝꯕꯤ ꯆꯪꯁꯤꯟꯕ ꯏꯟꯗꯦꯛꯁ",
+    "critical_corridors": "ꯃꯔꯨꯑꯣꯏꯕ ꯂꯝꯕꯤ",
+    "high_risk_roads": "ꯈꯨꯗꯣꯡꯊꯤꯕ ꯂꯝꯕꯤ",
+    "active_disruptions": "ꯊꯤꯡꯖꯤꯜꯂꯕ ꯂꯝꯕꯤ",
+    "corridor_breakdown": "ꯂꯝꯕꯤ ꯐꯤꯚꯝ ꯌꯦꯡꯁꯤꯅꯕ"
+  },
+  "chat": {
+    "title": "ꯁ꯭ꯃꯥꯔ꯭ꯠꯔꯨꯠ AI ꯃꯇꯦꯡ",
+    "subtitle": "ꯂꯣꯟ ꯀꯌꯥꯒꯤ ꯑꯦꯁꯤꯁ꯭ꯇꯦꯟ꯭ꯇ",
+    "placeholder": "ꯂꯝꯕꯤ, ꯅꯣꯡꯖꯨ-ꯅꯨꯡꯁꯤꯠ ꯍꯪꯕꯤꯌꯨ...",
+    "send": "ꯊꯥꯕ",
+    "listening": "ꯇꯥꯔꯤ...",
+    "speak": "ꯈꯣꯟꯊꯣꯛ ꯍꯥꯞꯄ",
+    "speech_unsupported": "ꯈꯣꯟꯊꯣꯛ ꯌꯥꯗ꯭ꯔꯦ।"
+  }
+}

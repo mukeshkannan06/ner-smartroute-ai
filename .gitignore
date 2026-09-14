@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+.venv/
+env/
+# ml_models/*.pkl are tracked for instant cloud deployment on Render
+
+# Environment variables
+.env
+.env.local
+
+# Node / Vite Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+.npm
+.eslintcache
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

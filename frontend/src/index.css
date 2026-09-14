@@ -1,0 +1,122 @@
+:root {
+  --forest-900: #0D1F18;
+  --forest-800: #142E24;
+  --forest-700: #1E3F32;
+  --forest-600: #2B5444;
+  --forest-500: #3E725D;
+  --moss: #5E937A;
+  --moss-light: #A3C9B8;
+  
+  --clay-800: #7A331E;
+  --clay-600: #B5502D;
+  --clay-400: #D97350;
+  --clay-100: #F7EAE5;
+  
+  --sand-900: #26231C;
+  --sand-800: #423E34;
+  --sand-600: #8C8472;
+  --sand-400: #C9C1B0;
+  --sand-200: #EBE5D8;
+  --sand-100: #F5EFEB;
+  --sand-50:  #FAF7F2;
+
+  --amber: #D99B26;
+  --amber-light: #F7DFAB;
+  --crimson: #C93B3B;
+  --crimson-light: #FAD4D4;
+  --emerald: #2E8B57;
+  --emerald-light: #D1E7DD;
+  --sky: #2B75A0;
+
+  --bg-app: #F5EFEB;
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #FAF7F2;
+  --text-main: #1D2420;
+  --text-muted: #5E6963;
+  --text-light: #8E9892;
+  --border-color: #DDD5C7;
+  --border-subtle: #ECE5DA;
+
+  --shadow-sm: 0 1px 3px rgba(13, 31, 24, 0.06), 0 1px 2px rgba(13, 31, 24, 0.04);
+  --shadow-md: 0 4px 12px rgba(13, 31, 24, 0.08), 0 2px 4px rgba(13, 31, 24, 0.04);
+  --shadow-lg: 0 12px 32px rgba(13, 31, 24, 0.12), 0 4px 8px rgba(13, 31, 24, 0.06);
+  --shadow-xl: 0 20px 48px rgba(13, 31, 24, 0.16);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--forest-900);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+input, select, textarea {
+  font-family: var(--font-sans);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--sand-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sand-400);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sand-600);
+}
+
+/* Leaflet Overrides */
+.leaflet-container {
+  font-family: var(--font-sans) !important;
+  z-index: 1;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md) !important;
+  padding: 4px !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+.leaflet-popup-content {
+  margin: 10px 14px !important;
+  line-height: 1.4 !important;
+}

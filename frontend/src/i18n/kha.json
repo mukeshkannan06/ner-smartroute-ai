@@ -1,0 +1,66 @@
+{
+  "app": {
+    "title": "NER SmartRoute AI",
+    "subtitle": "Digital Mobility Twin & Resilient Route Optimization for Khasi Hills & NER",
+    "live_status": "Active",
+    "data_mode_notice": "GIS Graph & ML models computed dynamically."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "smart_routes": "Route Planner",
+    "digital_twin": "Digital Twin",
+    "government": "Govt Analytics",
+    "incidents": "Hazard Monitor",
+    "settings": "Settings"
+  },
+  "planner": {
+    "title": "Wad Lynti ba Shngain",
+    "subtitle": "Jingbishar ia ka lynti, ka suinbneng bad ka jingma",
+    "origin": "Jaka Mih",
+    "destination": "Jaka Poi",
+    "vehicle_type": "Jait Kali",
+    "cargo": "Jait Mar",
+    "weight": "Khia (Tonnes)",
+    "monsoon": "Samla slap",
+    "peak_hour": "Por bun kali",
+    "find_route": "Wad Lynti",
+    "calculating": "Dang bishar...",
+    "recommended": "Lynti ba ai jingmut",
+    "alternate": "Lynti ba ar",
+    "distance": "Jingjngai",
+    "eta": "Por ba antad",
+    "risk": "Jingma",
+    "accessibility": "Jinglah ban rung",
+    "cost": "Dor ba antad",
+    "no_route": "Ym shem lynti."
+  },
+  "twin": {
+    "title": "Digital Mobility Twin",
+    "subtitle": "Jingpeit lypa ia ka jingkhang surok bad jingjia ba khraw",
+    "select_road": "Surok Bah",
+    "disruption_type": "Jait Jingjia",
+    "simulate_btn": "Peit Lypa",
+    "reopen_all": "Plie biang baroh ki surok",
+    "affected_shipments": "Ki mar ba shah ktah",
+    "impact_report": "Jingktah baroh",
+    "accessibility_loss": "Jinghiar ka jinglah ban rung",
+    "reroute_status": "Lynti thymmai"
+  },
+  "gov": {
+    "title": "NER Highway Operations & Policy Dashboard",
+    "accessibility_index": "Accessibility Index",
+    "critical_corridors": "Surok ba donkam",
+    "high_risk_roads": "Surok ba ma",
+    "active_disruptions": "Surok ba khang",
+    "corridor_breakdown": "Jinglong ki surok"
+  },
+  "chat": {
+    "title": "SmartRoute AI Assistant",
+    "subtitle": "Assistant ha bun ki jait ktien",
+    "placeholder": "Kylli shaphang ka lynti, ka suinbneng...",
+    "send": "Phah",
+    "listening": "Dang sngap...",
+    "speak": "Kren",
+    "speech_unsupported": "Ym lah ban kren ha kane ka browser."
+  }
+}

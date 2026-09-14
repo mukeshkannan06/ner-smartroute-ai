@@ -1,0 +1,66 @@
+{
+  "app": {
+    "title": "NER SmartRoute AI",
+    "subtitle": "Digital Mobility Twin & Kawng him ber zawnna Mizoram leh NER tan",
+    "live_status": "Active",
+    "data_mode_notice": "GIS Graph & ML models chawhchhuah a ni."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "smart_routes": "Kawng Zawnna",
+    "digital_twin": "Digital Twin",
+    "government": "Sawrkar Enchhinna",
+    "incidents": "Harsatna Thleng",
+    "settings": "Settings"
+  },
+  "planner": {
+    "title": "Kawng Him Ber Zawnna",
+    "subtitle": "Khawchin, chhiatna theihna leh kawng that dan chawhrual",
+    "origin": "Chhuahna Khawpui",
+    "destination": "Thlenna Khawpui",
+    "vehicle_type": "Motor Chi",
+    "cargo": "Phurh Tur",
+    "weight": "Rih Zawng (Tonnes)",
+    "monsoon": "Fur Lai",
+    "peak_hour": "Tlan tam lai",
+    "find_route": "Kawng Zawng Rawh",
+    "calculating": "Chhut mek a ni...",
+    "recommended": "Kawng Rawt Ber",
+    "alternate": "Kawng Dang",
+    "distance": "Hlat zawng",
+    "eta": "Hun Mamawh",
+    "risk": "Hlauhthawnna",
+    "accessibility": "Tlawhpawh theihna",
+    "cost": "Man Chawhrual",
+    "no_route": "Kawng a awm lo."
+  },
+  "twin": {
+    "title": "Digital Mobility Twin",
+    "subtitle": "Chhiatrupna thlen laia kawng dang zawnna",
+    "select_road": "Kawngpui",
+    "disruption_type": "Harsatna Chi",
+    "simulate_btn": "Enchhin Rawh",
+    "reopen_all": "Kawng zawng hawng vek rawh",
+    "affected_shipments": "Phurhbuai te",
+    "impact_report": "Nghawng Zirchianna",
+    "accessibility_loss": "Tlawhpawh theihna tlahniam",
+    "reroute_status": "Kawng dang siam a ni"
+  },
+  "gov": {
+    "title": "NER Highway Operations & Policy Dashboard",
+    "accessibility_index": "Accessibility Index",
+    "critical_corridors": "Kawng Pawimawh",
+    "high_risk_roads": "Kawng Hlauhawm",
+    "active_disruptions": "Kawng Khar",
+    "corridor_breakdown": "Kawng Dinhmun"
+  },
+  "chat": {
+    "title": "SmartRoute AI Assistant",
+    "subtitle": "Ṭawng chi hrang hrang assistant",
+    "placeholder": "Kawng, khawchin zawt rawh...",
+    "send": "Thawn rawh",
+    "listening": "Ngaihthlak mek...",
+    "speak": "Ṭawngin sawi rawh",
+    "speech_unsupported": "Browser hian a support lo."
+  }
+}

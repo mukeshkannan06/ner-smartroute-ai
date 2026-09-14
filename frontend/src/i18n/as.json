@@ -1,0 +1,66 @@
+{
+  "app": {
+    "title": "NER স্মাৰ্টৰুট AI",
+    "subtitle": "উত্তৰ-পূব ভাৰতৰ ডিজিটেল মবিলিটি টুইন আৰু পথ পৰিকল্পনা",
+    "live_status": "সক্ৰিয়",
+    "data_mode_notice": "GIS গ্ৰাফ আৰু ML মডেলসমূহ সক্ৰিয়ভাৱে গণনা কৰা হৈছে।"
+  },
+  "nav": {
+    "dashboard": "ডেশ্বব'ৰ্ড",
+    "smart_routes": "পথ পৰিকল্পনা",
+    "digital_twin": "ডিজিটেল টুইন",
+    "government": "চৰকাৰী বিশ্লেষণ",
+    "incidents": "বিপদ নিৰীক্ষণ",
+    "settings": "ছেটিংছ"
+  },
+  "planner": {
+    "title": "স্মাৰ্ট পথ অনুকূলন",
+    "subtitle": "ভূ-প্ৰকৃতি, বতৰ, পথৰ মান আৰু বিপদ বিশ্লেষণ",
+    "origin": "আৰম্ভণি চহৰ",
+    "destination": "গন্তব্য চহৰ",
+    "vehicle_type": "বাহনৰ ধৰণ",
+    "cargo": "সামগ্ৰীৰ বিৱৰণ",
+    "weight": "ওজন (টন)",
+    "monsoon": "বাৰিষা কাল",
+    "peak_hour": "ট্ৰেফিক সময়",
+    "find_route": "উত্তম পথ সন্ধান কৰক",
+    "calculating": "গণনা চলি আছে...",
+    "recommended": "পৰামৰ্শ দিয়া পথ",
+    "alternate": "বিকল্প পথ",
+    "distance": "দূৰত্ব",
+    "eta": "আনুমানিক সময়",
+    "risk": "বিপদৰ মাত্ৰা",
+    "accessibility": "প্ৰৱেশযোগ্যতা নম্বৰ",
+    "cost": "খৰচ",
+    "no_route": "কোনো পথ পোৱা নগ'ল।"
+  },
+  "twin": {
+    "title": "ডিজিটেল মবিলিটি টুইন",
+    "subtitle": "প্ৰাকৃতিক দুৰ্যোগৰ অনুকৰণ আৰু বিকল্প পথ গণনা",
+    "select_road": "ৰাষ্ট্ৰীয় ঘাইপথ",
+    "disruption_type": "বিপদৰ প্ৰকাৰ",
+    "simulate_btn": "অনুকৰণ কৰক",
+    "reopen_all": "সকলো পথ মুকলি কৰক",
+    "affected_shipments": "প্ৰভাৱিত পৰিবহণ",
+    "impact_report": "প্ৰভাৱ মূল্যায়ন",
+    "accessibility_loss": "প্ৰৱেশযোগ্যতা হ্ৰাস",
+    "reroute_status": "নতুন পথ নিৰ্ধাৰণ কৰা হৈছে"
+  },
+  "gov": {
+    "title": "NER ঘাইপথ সঞ্চালন ডেশ্বব'ৰ্ড",
+    "accessibility_index": "প্ৰৱেশযোগ্যতা সূচকাংক",
+    "critical_corridors": "গুৰুত্বপূৰ্ণ কৰিডৰ",
+    "high_risk_roads": "উচ্চ বিপদ সংকুল পথ",
+    "active_disruptions": "বন্ধ পথ",
+    "corridor_breakdown": "কৰিডৰ স্বাস্থ্য নিৰীক্ষণ"
+  },
+  "chat": {
+    "title": "স্মাৰ্টৰুট AI সহায়ক",
+    "subtitle": "বহুভাষিক ভইচ আৰু টেক্সট সহায়ক",
+    "placeholder": "পথ, বতৰ বা বিপদৰ বিষয়ে সোধক...",
+    "send": "প্ৰেৰণ কৰক",
+    "listening": "শুনি আছোঁ...",
+    "speak": "ভইচ ইনপুট",
+    "speech_unsupported": "ভইচ সমৰ্থিত নহয়।"
+  }
+}

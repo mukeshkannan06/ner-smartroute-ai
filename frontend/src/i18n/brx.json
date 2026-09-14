@@ -1,0 +1,66 @@
+{
+  "app": {
+    "title": "NER SmartRoute AI",
+    "subtitle": "Digital Mobility Twin & Resilient Route Optimization",
+    "live_status": "Active",
+    "data_mode_notice": "GIS Graph & ML models computed dynamically."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "smart_routes": "Route Planner",
+    "digital_twin": "Digital Twin",
+    "government": "Govt Analytics",
+    "incidents": "Hazard Monitor",
+    "settings": "Settings"
+  },
+  "planner": {
+    "title": "Smart Route Optimization",
+    "subtitle": "Multi-factor scoring considering terrain, weather, road quality, and risk",
+    "origin": "Origin City",
+    "destination": "Destination City",
+    "vehicle_type": "Vehicle Type",
+    "cargo": "Cargo Description",
+    "weight": "Weight (Tonnes)",
+    "monsoon": "Monsoon Season",
+    "peak_hour": "Peak Traffic Hours",
+    "find_route": "Find Optimal Routes",
+    "calculating": "Calculating...",
+    "recommended": "Recommended Route",
+    "alternate": "Alternative Route",
+    "distance": "Distance",
+    "eta": "Estimated Time",
+    "risk": "Risk Level",
+    "accessibility": "Accessibility Score",
+    "cost": "Logistics Cost",
+    "no_route": "No route found between selected cities."
+  },
+  "twin": {
+    "title": "Digital Mobility Twin",
+    "subtitle": "Simulate natural hazards and evaluate logistics disruption",
+    "select_road": "Highway Segment",
+    "disruption_type": "Disruption Type",
+    "simulate_btn": "Simulate Disruption",
+    "reopen_all": "Reopen All Roads",
+    "affected_shipments": "Affected Shipments",
+    "impact_report": "Impact Assessment",
+    "accessibility_loss": "Accessibility Drop",
+    "reroute_status": "Rerouting Computed"
+  },
+  "gov": {
+    "title": "NER Highway Operations & Policy Dashboard",
+    "accessibility_index": "Network Accessibility Index",
+    "critical_corridors": "Critical Corridors",
+    "high_risk_roads": "High-Risk Segments",
+    "active_disruptions": "Roads Closed",
+    "corridor_breakdown": "Corridor Health Monitoring"
+  },
+  "chat": {
+    "title": "SmartRoute AI Assistant",
+    "subtitle": "Multilingual assistant",
+    "placeholder": "Ask route, weather, or hazards...",
+    "send": "Send",
+    "listening": "Listening...",
+    "speak": "Voice input",
+    "speech_unsupported": "Voice recognition not supported."
+  }
+}

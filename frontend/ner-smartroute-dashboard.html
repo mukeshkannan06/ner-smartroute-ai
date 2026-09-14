@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NER SmartRoute AI — Digital Mobility Twin</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#1F3A2E; --forest-2:#2C4C3B; --clay:#B5502D; --clay-2:#8F3D22;
+    --sand:#F3ECDD; --sand-2:#E8DFC9; --moss:#6B8F71; --amber:#D9A441;
+    --red:#B33F3F; --ink:#211F1A; --ink-soft:#5B584E; --line:#D9D0BA;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--sand); color:var(--ink);
+    font-family:'Inter',sans-serif; line-height:1.5;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; font-weight:700; margin:0;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  header{
+    background:var(--forest); color:var(--sand);
+    padding:22px 28px; display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px; border-bottom:4px solid var(--clay);
+  }
+  header .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--moss); margin-bottom:4px;
+  }
+  header h1{font-size:26px;}
+  header .tagline{font-size:13px; color:#C9D6C6; margin-top:4px;}
+  .badge-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .badge{
+    font-family:'JetBrains Mono',monospace; font-size:11px; padding:5px 10px;
+    border:1px solid var(--moss); border-radius:20px; color:var(--sand);
+  }
+  #map{height:420px; width:100%; border-bottom:1px solid var(--line);}
+  .layout{
+    display:grid; grid-template-columns:1fr 1fr; gap:20px; padding:24px 28px 60px;
+    max-width:1320px; margin:0 auto;
+  }
+  @media (max-width:900px){ .layout{grid-template-columns:1fr;} }
+  .panel{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:20px 22px; margin-bottom:20px;
+  }
+  .panel h2{font-size:17px; margin-bottom:4px;}
+  .panel .sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:16px;}
+  label{font-size:12.5px; font-weight:600; color:var(--ink-soft); display:block; margin:10px 0 4px;}
+  select,input[type=number],input[type=text]{
+    width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:6px;
+    font-family:'Inter',sans-serif; font-size:14px; background:#FDFBF6;
+  }
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .checks{display:flex; gap:18px; margin-top:14px; font-size:13px;}
+  .checks label{display:flex; align-items:center; gap:6px; font-weight:500; color:var(--ink);}
+  button{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+    padding:11px 18px; border-radius:6px; border:none; cursor:pointer;
+    background:var(--clay); color:#fff; margin-top:16px; transition:background .15s;
+  }
+  button:hover{background:var(--clay-2);}
+  button.secondary{background:var(--forest);}
+  button.secondary:hover{background:var(--forest-2);}
+  button.ghost{background:transparent; border:1px solid var(--line); color:var(--ink);}
+  .route-card{
+    border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-top:12px;
+    position:relative;
+  }
+  .route-card.best{border:2px solid var(--clay); background:#FBF3EC;}
+  .route-card .rank{
+    position:absolute; top:-10px; left:12px; background:var(--forest); color:#fff;
+    font-family:'JetBrains Mono',monospace; font-size:11px; padding:2px 8px; border-radius:10px;
+  }
+  .route-path{font-family:'JetBrains Mono',monospace; font-size:13px; margin-bottom:8px; margin-top:6px;}
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:8px;}
+  .stat{background:var(--sand); border-radius:6px; padding:8px 10px;}
+  .stat .k{font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em;}
+  .stat .v{font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; margin-top:2px;}
+  .pill{display:inline-block; font-size:11px; padding:2px 9px; border-radius:20px; font-weight:600;}
+  .pill.LOW{background:#E1F0E3; color:#1E5B2E;}
+  .pill.MODERATE{background:#FBEBD1; color:#8A5A0B;}
+  .pill.HIGH,.pill.CLOSED{background:#F5DADA; color:#8A2222;}
+  .impact-box{border-left:3px solid var(--clay); padding:10px 14px; background:var(--sand); border-radius:0 8px 8px 0; margin-top:12px;}
+  .gauge-wrap{display:flex; align-items:center; gap:14px; margin:6px 0 18px;}
+  .gauge-track{flex:1; height:14px; background:var(--sand-2); border-radius:8px; overflow:hidden;}
+  .gauge-fill{height:100%; background:linear-gradient(90deg,var(--red),var(--amber),var(--moss)); border-radius:8px; transition:width .4s;}
+  .gauge-num{font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:500; min-width:52px; text-align:right;}
+  .dash-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .dash-tile{background:var(--forest); color:var(--sand); border-radius:8px; padding:12px 14px;}
+  .dash-tile .k{font-size:11px; color:#B9C7B6; text-transform:uppercase; letter-spacing:.04em;}
+  .dash-tile .v{font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:500; margin-top:4px;}
+  .legend{display:flex; gap:16px; font-size:12px; color:var(--ink-soft); padding:10px 28px; background:var(--sand-2); flex-wrap:wrap;}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .legend i{width:16px; height:3px; display:inline-block; border-radius:2px;}
+  .empty-note{font-size:13px; color:var(--ink-soft); font-style:italic;}
+  .footer-note{max-width:1320px; margin:0 auto; padding:0 28px 40px; font-size:12px; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Digital Mobility Twin — North East Region</div>
+    <h1>NER SmartRoute AI</h1>
+    <div class="tagline">Live route optimization, risk prediction and disruption simulation for NER highway logistics.</div>
+  </div>
+  <div class="badge-row">
+    <span class="badge">8 towns</span>
+    <span class="badge">11 road segments</span>
+    <span class="badge">Real graph, computed scores</span>
+  </div>
+</header>
+
+<div id="map"></div>
+<div class="legend">
+  <span><i style="background:#1E5B2E"></i> High accessibility</span>
+  <span><i style="background:#D9A441"></i> Moderate accessibility</span>
+  <span><i style="background:#B33F3F"></i> Low accessibility</span>
+  <span><i style="background:#999;border-top:2px dashed #999;height:0;"></i> Closed / disrupted</span>
+</div>
+
+<div class="layout">
+
+  <!-- LEFT COLUMN -->
+  <div>
+    <div class="panel">
+      <h2>Plan a shipment</h2>
+      <div class="sub">The optimizer finds every real alternate route through the network graph and scores each on accessibility, risk, ETA and cost — nothing here is a fixed number.</div>
+
+      <div class="row2">
+        <div>
+          <label>Origin</label>
+          <select id="origin"></select>
+        </div>
+        <div>
+          <label>Destination</label>
+          <select id="destination"></select>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div>
+          <label>Vehicle type</label>
+          <select id="vehicleType">
+            <option value="truck">Truck</option>
+            <option value="mini_truck">Mini truck</option>
+            <option value="van">Van</option>
+            <option value="car">Car</option>
+          </select>
+        </div>
+        <div>
+          <label>Weight (tonnes)</label>
+          <input type="number" id="weight" value="2" min="0.5" step="0.5">
+        </div>
+      </div>
+
+      <label>Cargo</label>
+      <input type="text" id="cargo" value="Vegetables">
+
+      <div class="checks">
+        <label><input type="checkbox" id="monsoon"> Monsoon season</label>
+        <label><input type="checkbox" id="peak"> Peak-hour traffic</label>
+      </div>
+
+      <button id="planBtn">Find best route ↗</button>
+      <div id="routeResults"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div>
+    <div class="panel">
+      <h2>Government dashboard</h2>
+      <div class="sub">Network-wide accessibility snapshot, recomputed live from every open road.</div>
+      <div class="gauge-wrap">
+        <div class="gauge-track"><div class="gauge-fill" id="gaugeFill" style="width:0%"></div></div>
+        <div class="gauge-num" id="gaugeNum">—</div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-tile"><div class="k">Critical corridors</div><div class="v" id="dashCritical">0</div></div>
+        <div class="dash-tile"><div class="k">High-risk routes</div><div class="v" id="dashRisk">0</div></div>
+        <div class="dash-tile"><div class="k">Roads closed</div><div class="v" id="dashClosed">0</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Digital Mobility Twin</h2>
+      <div class="sub">Simulate a disruption on any road segment and see the real recomputed impact on the shipment above.</div>
+      <label>Road segment</label>
+      <select id="disruptRoad"></select>
+      <label>Disruption type</label>
+      <select id="disruptType">
+        <option value="LANDSLIDE">Landslide</option>
+        <option value="FLOOD">Flood</option>
+        <option value="ROAD_CLOSURE">Road closure</option>
+        <option value="BRIDGE_CLOSURE">Bridge closure</option>
+      </select>
+      <button class="secondary" id="disruptBtn">Simulate disruption ↗</button>
+      <button class="ghost" id="reopenBtn">Reopen all roads</button>
+      <div id="twinResults"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  Weather and traffic are seeded-synthetic per road segment for reproducible demo runs; road network structure and all optimizer/accessibility/digital-twin logic are computed live in your browser from the graph above. The companion Python backend in this project trains real scikit-learn models for risk and ETA prediction — this in-browser version uses the same underlying formulas directly for a dependency-free demo.
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// =====================================================================
+// NETWORK DATA (mirrors backend/graph_data.py)
+// =====================================================================
+const NODES = {
+  Guwahati: { lat: 26.1445, lon: 91.7362 },
+  Shillong: { lat: 25.5788, lon: 91.8933 },
+  Silchar:  { lat: 24.8333, lon: 92.7789 },
+  Dimapur:  { lat: 25.9091, lon: 93.7267 },
+  Kohima:   { lat: 25.6751, lon: 94.1086 },
+  Imphal:   { lat: 24.8170, lon: 93.9368 },
+  Jorhat:   { lat: 26.7509, lon: 94.2037 },
+  Aizawl:   { lat: 23.7271, lon: 92.7176 },
+};
+
+const ROADS = [
+  { id:"NH-001", a:"Guwahati", b:"Silchar", dist:300, type:"NH", surface:"paved",   maxW:20, terrain:"hilly", cond:82, status:"OPEN" },
+  { id:"NH-002", a:"Silchar",  b:"Imphal",  dist:220, type:"NH", surface:"paved",   maxW:18, terrain:"hilly", cond:74, status:"OPEN" },
+  { id:"NH-003", a:"Guwahati", b:"Dimapur", dist:280, type:"NH", surface:"paved",   maxW:20, terrain:"plain", cond:88, status:"OPEN" },
+  { id:"SH-004", a:"Dimapur",  b:"Kohima",  dist:80,  type:"SH", surface:"paved",   maxW:15, terrain:"hilly", cond:78, status:"OPEN" },
+  { id:"SH-005", a:"Kohima",   b:"Imphal",  dist:140, type:"SH", surface:"paved",   maxW:15, terrain:"hilly", cond:68, status:"OPEN" },
+  { id:"NH-006", a:"Guwahati", b:"Shillong",dist:100, type:"NH", surface:"paved",   maxW:18, terrain:"hilly", cond:87, status:"OPEN" },
+  { id:"SH-007", a:"Shillong", b:"Silchar", dist:220, type:"SH", surface:"paved",   maxW:15, terrain:"hilly", cond:63, status:"OPEN" },
+  { id:"NH-008", a:"Guwahati", b:"Jorhat",  dist:300, type:"NH", surface:"paved",   maxW:20, terrain:"plain", cond:85, status:"OPEN" },
+  { id:"SH-009", a:"Jorhat",   b:"Dimapur", dist:150, type:"SH", surface:"paved",   maxW:15, terrain:"plain", cond:76, status:"OPEN" },
+  { id:"SH-010", a:"Silchar",  b:"Aizawl",  dist:180, type:"SH", surface:"paved",   maxW:14, terrain:"hilly", cond:66, status:"OPEN" },
+  { id:"SH-011", a:"Aizawl",   b:"Imphal",  dist:260, type:"SH", surface:"unpaved", maxW:10, terrain:"hilly", cond:45, status:"OPEN" },
+];
+
+// =====================================================================
+// SEEDED SYNTHETIC WEATHER / TRAFFIC (mirrors backend/weather.py, traffic_incidents.py)
+// =====================================================================
+function seededRand(key){
+  let h = 0;
+  for (let i=0;i<key.length;i++){ h = (Math.imul(31,h) + key.charCodeAt(i)) | 0; }
+  let state = (h >>> 0) || 1;
+  return function(){ state ^= state<<13; state ^= state>>>17; state ^= state<<5; state = state>>>0; return (state % 100000)/100000; };
+}
+function uniform(rnd, lo, hi){ return lo + rnd()*(hi-lo); }
+function getWeather(roadId){
+  const rnd = seededRand(roadId+"-weather-v1");
+  return { rain: uniform(rnd,0,60), wind: uniform(rnd,5,45), vis: uniform(rnd,2,10) };
+}
+function getTraffic(roadId){ return uniform(seededRand(roadId+"-traffic-v1"), 5, 55); }
+function weatherRisk(w){
+  return Math.min(100, (w.rain/80*100)*0.6 + (w.wind/60*100)*0.2 + Math.max(0,(10-w.vis)/10*100)*0.2);
+}
+
+// =====================================================================
+// GRAPH HELPERS
+// =====================================================================
+function roadById(id){ return ROADS.find(r=>r.id===id); }
+function roadsBetween(a,b){ return ROADS.filter(r => (r.a===a&&r.b===b)||(r.a===b&&r.b===a)); }
+function bestRoad(a,b){
+  const cands = roadsBetween(a,b).filter(r=>r.status==="OPEN");
+  if(!cands.length) return null;
+  return cands.reduce((best,r)=> r.cond>best.cond?r:best);
+}
+
+// =====================================================================
+// ACCESSIBILITY (mirrors backend/accessibility.py — weights documented there)
+// =====================================================================
+function accessibilityOf(road){
+  if (road.status==="CLOSED") return 0;
+  const w = getWeather(road.id);
+  const weatherScore = 100 - weatherRisk(w);
+  const trafficScore = 100 - getTraffic(road.id);
+  const transport = Math.max(0, Math.min(100, (road.type==="SH"?60:80) - (road.surface==="unpaved"?20:0)));
+  const connectivity = Math.min(road.maxW/20*100,100)*0.5 + (road.surface==="paved"?100:40)*0.5;
+  const reliability = road.terrain==="plain" ? 90 : 70;
+  const total = road.cond*0.30 + weatherScore*0.20 + trafficScore*0.15 + transport*0.10 + connectivity*0.10 + reliability*0.15;
+  return Math.round(total*10)/10;
+}
+
+// =====================================================================
+// RISK (rule-based formula — same rules used to generate the Python
+// backend's ML training data; the backend itself predicts via a trained
+// RandomForest, this browser demo applies the rule directly)
+// =====================================================================
+function riskOf(road, seasonMonsoon){
+  if (road.status==="CLOSED") return {prob:1.0, level:"CLOSED"};
+  const w = getWeather(road.id);
+  const traffic = getTraffic(road.id);
+  const terrainHilly = road.terrain==="hilly" ? 1:0;
+  const surfacePaved = road.surface==="paved" ? 1:0;
+  let score = 0.30*(w.rain/120) + 0.10*(w.wind/60) + 0.10*(1-w.vis/10)
+    + 0.10*(traffic/100) + 0.15*(1-road.cond/100) + 0.10*terrainHilly
+    + 0.05*(1-surfacePaved) + 0.10*(seasonMonsoon?1:0);
+  score = Math.max(0, Math.min(1, score));
+  const level = score>=0.5 ? "HIGH" : score>=0.3 ? "MODERATE" : "LOW";
+  return { prob: Math.round(score*1000)/1000, level };
+}
+
+// =====================================================================
+// ETA (physics-based formula mirroring the Python ETA model's training rules)
+// =====================================================================
+const VEHICLE_SPEED = { truck:45, mini_truck:50, van:55, car:65 };
+function etaOf(road, vehicleType, peakHour){
+  if (road.status==="CLOSED") return Infinity;
+  const w = getWeather(road.id);
+  const traffic = getTraffic(road.id);
+  let speed = VEHICLE_SPEED[vehicleType] || 45;
+  speed -= (traffic/100)*15;
+  speed -= (w.rain/120)*12;
+  speed -= (road.terrain==="hilly"?1:0)*8;
+  speed -= (1-road.cond/100)*10;
+  speed -= (peakHour?1:0)*5;
+  speed = Math.max(15, speed);
+  return Math.round((road.dist/speed)*100)/100;
+}
+
+const COST_PER_KM = { truck:32, mini_truck:24, van:20, car:14 };
+
+// =====================================================================
+// ROUTE OPTIMIZER (mirrors backend/optimizer.py)
+// =====================================================================
+function findPaths(origin, destination, maxHops=5){
+  const results = [];
+  function dfs(current, visited, path){
+    if (path.length > maxHops+1) return;
+    if (current === destination){ results.push([...path]); return; }
+    for (const road of ROADS){
+      if (road.status!=="OPEN") continue;
+      let next = null;
+      if (road.a===current && !visited.has(road.b)) next = road.b;
+      else if (road.b===current && !visited.has(road.a)) next = road.a;
+      if (next){ visited.add(next); path.push(next); dfs(next, visited, path); path.pop(); visited.delete(next); }
+    }
+  }
+  dfs(origin, new Set([origin]), [origin]);
+  results.sort((a,b)=>pathDistance(a)-pathDistance(b));
+  return results.slice(0,4);
+}
+function pathDistance(path){
+  let d=0;
+  for(let i=0;i<path.length-1;i++){ const r=bestRoad(path[i],path[i+1]); if(!r) return Infinity; d+=r.dist; }
+  return d;
+}
+function scoreRoute(path, vehicleType, weightTonnes, seasonMonsoon, peakHour){
+  const legs = [];
+  for(let i=0;i<path.length-1;i++){
+    const road = bestRoad(path[i], path[i+1]);
+    if(!road) return null;
+    legs.push({ road, risk: riskOf(road, seasonMonsoon), eta: etaOf(road, vehicleType, peakHour), acc: accessibilityOf(road) });
+  }
+  const totalDist = legs.reduce((s,l)=>s+l.road.dist,0);
+  const totalEta = Math.round(legs.reduce((s,l)=>s+l.eta,0)*100)/100;
+  const avgRisk = Math.round((legs.reduce((s,l)=>s+l.risk.prob,0)/legs.length)*1000)/1000;
+  const avgAcc = Math.round((legs.reduce((s,l)=>s+l.acc,0)/legs.length)*10)/10;
+  const cost = Math.round(totalDist*(COST_PER_KM[vehicleType]||30) + Math.max(0,weightTonnes-5)*150);
+  const riskLevel = avgRisk>=0.5 ? "HIGH" : avgRisk>=0.3 ? "MODERATE" : "LOW";
+  return { path, roads: legs.map(l=>l.road.id), totalDist, totalEta, avgRisk, riskLevel, avgAcc, cost };
+}
+function normalize(values, invert){
+  const lo=Math.min(...values), hi=Math.max(...values);
+  if (hi===lo) return values.map(()=>1);
+  return values.map(v=>{ const n=(v-lo)/(hi-lo); return invert?1-n:n; });
+}
+function rankRoutes(origin, destination, vehicleType, weightTonnes, seasonMonsoon, peakHour){
+  const paths = findPaths(origin, destination);
+  const candidates = paths.map(p=>scoreRoute(p, vehicleType, weightTonnes, seasonMonsoon, peakHour)).filter(Boolean);
+  if (!candidates.length) return [];
+  const accN = normalize(candidates.map(c=>c.avgAcc));
+  const riskN = normalize(candidates.map(c=>c.avgRisk), true);
+  const etaN = normalize(candidates.map(c=>c.totalEta), true);
+  const costN = normalize(candidates.map(c=>c.cost), true);
+  candidates.forEach((c,i)=>{ c.score = Math.round((accN[i]*0.35 + riskN[i]*0.35 + etaN[i]*0.20 + costN[i]*0.10)*1000)/10; });
+  candidates.sort((a,b)=>b.score-a.score);
+  return candidates;
+}
+
+// =====================================================================
+// NETWORK SNAPSHOT (mirrors digital_twin.network_accessibility_snapshot)
+// =====================================================================
+function networkSnapshot(){
+  let scores=[], critical=0, highRisk=0, closed=0;
+  ROADS.forEach(r=>{
+    if (r.status==="CLOSED"){ closed++; return; }
+    const a = accessibilityOf(r);
+    scores.push(a);
+    if (a<50) critical++;
+    if (riskOf(r,false).level==="HIGH") highRisk++;
+  });
+  const avg = scores.length ? Math.round((scores.reduce((s,v)=>s+v,0)/scores.length)*10)/10 : 0;
+  return { avg, critical, highRisk, closed, total: ROADS.length };
+}
+
+// =====================================================================
+// UI WIRING
+// =====================================================================
+const townNames = Object.keys(NODES);
+function fillSelect(sel, includeAll){
+  sel.innerHTML = "";
+  townNames.forEach(name=>{
+    const opt = document.createElement("option");
+    opt.value = name; opt.textContent = name;
+    sel.appendChild(opt);
+  });
+}
+const originSel = document.getElementById("origin");
+const destSel = document.getElementById("destination");
+fillSelect(originSel); fillSelect(destSel);
+originSel.value = "Guwahati"; destSel.value = "Imphal";
+
+const disruptSel = document.getElementById("disruptRoad");
+ROADS.forEach(r=>{
+  const opt = document.createElement("option");
+  opt.value = r.id; opt.textContent = `${r.id} (${r.a} \u2013 ${r.b})`;
+  disruptSel.appendChild(opt);
+});
+
+// ---- Map ----
+const map = L.map('map', { scrollWheelZoom:false }).setView([25.3, 92.8], 6.4);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors', maxZoom: 10
+}).addTo(map);
+
+Object.entries(NODES).forEach(([name, pos])=>{
+  L.circleMarker([pos.lat,pos.lon], {radius:6, color:"#1F3A2E", weight:2, fillColor:"#F3ECDD", fillOpacity:1})
+    .addTo(map).bindTooltip(name, {permanent:false});
+});
+
+let roadLines = {};
+function accColor(score){
+  if (score>=75) return "#1E5B2E";
+  if (score>=55) return "#D9A441";
+  return "#B33F3F";
+}
+function drawRoads(){
+  Object.values(roadLines).forEach(l=>map.removeLayer(l));
+  roadLines = {};
+  ROADS.forEach(r=>{
+    const a = NODES[r.a], b = NODES[r.b];
+    const closed = r.status==="CLOSED";
+    const acc = closed ? 0 : accessibilityOf(r);
+    const line = L.polyline([[a.lat,a.lon],[b.lat,b.lon]], {
+      color: closed ? "#999999" : accColor(acc),
+      weight: r.type==="NH" ? 5 : 3,
+      dashArray: closed ? "6,6" : null,
+      opacity: closed ? 0.6 : 0.9,
+    }).addTo(map);
+    line.bindTooltip(`${r.id}: ${r.a} \u2013 ${r.b}${closed?" (CLOSED)":` \u2014 accessibility ${acc}/100`}`);
+    roadLines[r.id] = line;
+  });
+}
+drawRoads();
+
+function refreshDashboard(){
+  const snap = networkSnapshot();
+  document.getElementById("gaugeFill").style.width = snap.avg + "%";
+  document.getElementById("gaugeNum").textContent = snap.avg;
+  document.getElementById("dashCritical").textContent = snap.critical;
+  document.getElementById("dashRisk").textContent = snap.highRisk;
+  document.getElementById("dashClosed").textContent = snap.closed;
+  drawRoads();
+}
+refreshDashboard();
+
+function routeCardHTML(c, i, isBest){
+  return `
+    <div class="route-card ${isBest?'best':''}">
+      <span class="rank">#${i+1}${isBest?' \u2014 recommended':''}</span>
+      <div class="route-path">${c.path.join(" \u2192 ")}</div>
+      <div style="font-size:12px;color:var(--ink-soft)">Roads: ${c.roads.join(", ")}</div>
+      <div class="stat-grid">
+        <div class="stat"><div class="k">Distance</div><div class="v">${c.totalDist} km</div></div>
+        <div class="stat"><div class="k">ETA</div><div class="v">${c.totalEta} h</div></div>
+        <div class="stat"><div class="k">Risk</div><div class="v"><span class="pill ${c.riskLevel}">${(c.avgRisk*100).toFixed(1)}%</span></div></div>
+        <div class="stat"><div class="k">Accessibility</div><div class="v">${c.avgAcc}/100</div></div>
+      </div>
+      <div style="margin-top:8px; font-size:13px;">Est. cost: <span class="mono">\u20b9${c.cost.toLocaleString('en-IN')}</span> &nbsp;|&nbsp; Overall score: <span class="mono">${c.score}/100</span></div>
+    </div>`;
+}
+
+let lastRequest = null;
+
+function planRoute(){
+  const origin = originSel.value, destination = destSel.value;
+  const vehicleType = document.getElementById("vehicleType").value;
+  const weight = parseFloat(document.getElementById("weight").value) || 2;
+  const cargo = document.getElementById("cargo").value || "Cargo";
+  const monsoon = document.getElementById("monsoon").checked;
+  const peak = document.getElementById("peak").checked;
+  lastRequest = {origin, destination, vehicleType, weight, cargo, monsoon, peak};
+
+  const resultsEl = document.getElementById("routeResults");
+  if (origin === destination){
+    resultsEl.innerHTML = `<p class="empty-note">Pick two different towns.</p>`;
+    return;
+  }
+  const candidates = rankRoutes(origin, destination, vehicleType, weight, monsoon, peak);
+  if (!candidates.length){
+    resultsEl.innerHTML = `<p class="empty-note">No route currently connects these towns \u2014 try reopening closed roads.</p>`;
+    return;
+  }
+  resultsEl.innerHTML = `<p style="margin-top:16px;font-size:13px;color:var(--ink-soft)">
+    "Transport ${weight}t of ${cargo}, ${origin} \u2192 ${destination}."</p>`
+    + candidates.map((c,i)=>routeCardHTML(c,i,i===0)).join("");
+}
+document.getElementById("planBtn").addEventListener("click", planRoute);
+
+function simulateDisruption(){
+  const roadId = disruptSel.value;
+  const reason = document.getElementById("disruptType").value;
+  const road = roadById(roadId);
+
+  let baseline = null;
+  if (lastRequest && lastRequest.origin !== lastRequest.destination){
+    const ranked = rankRoutes(lastRequest.origin, lastRequest.destination, lastRequest.vehicleType, lastRequest.weight, lastRequest.monsoon, lastRequest.peak);
+    baseline = ranked[0] || null;
+  }
+
+  road.status = "CLOSED";
+  refreshDashboard();
+
+  const twinEl = document.getElementById("twinResults");
+  let html = `<div class="impact-box"><strong>${roadId} closed</strong> (${reason}) \u2014 affects ${road.a} \u2013 ${road.b}.</div>`;
+
+  if (baseline && baseline.roads.includes(roadId)){
+    const newRanked = rankRoutes(lastRequest.origin, lastRequest.destination, lastRequest.vehicleType, lastRequest.weight, lastRequest.monsoon, lastRequest.peak);
+    const alt = newRanked[0] || null;
+    if (alt){
+      const extraDist = Math.round((alt.totalDist - baseline.totalDist)*10)/10;
+      const extraTime = Math.round((alt.totalEta - baseline.totalEta)*100)/100;
+      html += `
+        <p style="font-size:13px;margin-top:12px;"><strong>Shipment ${lastRequest.origin} \u2192 ${lastRequest.destination}</strong> was using this road. Recomputed alternative:</p>
+        ${routeCardHTML(alt, 0, true)}
+        <div class="impact-box">
+          Extra distance: <span class="mono">${extraDist} km</span> &nbsp;|&nbsp;
+          Extra time: <span class="mono">${extraTime} h</span> &nbsp;|&nbsp;
+          Priority: <span class="pill HIGH">HIGH</span>
+        </div>
+        <p style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;">
+          Recommendation: activate the alternate corridor above for ${road.a}\u2013${road.b} traffic.
+        </p>`;
+    } else {
+      html += `<p style="font-size:13px;color:var(--red);margin-top:12px;">No alternative route found \u2014 shipment is stranded.</p>`;
+    }
+  } else {
+    html += `<p class="empty-note" style="margin-top:10px;">No planned shipment currently depends on this corridor. Plan a shipment on the left, then simulate a disruption on its route to see the reroute in action.</p>`;
+  }
+  twinEl.innerHTML = html;
+}
+document.getElementById("disruptBtn").addEventListener("click", simulateDisruption);
+
+document.getElementById("reopenBtn").addEventListener("click", ()=>{
+  ROADS.forEach(r=>r.status="OPEN");
+  refreshDashboard();
+  document.getElementById("twinResults").innerHTML = `<p class="empty-note">All roads reopened.</p>`;
+});
+
+// initial demo state
+planRoute();
+</script>
+</body>
+</html>

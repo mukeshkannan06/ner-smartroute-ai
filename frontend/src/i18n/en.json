@@ -1,0 +1,66 @@
+{
+  "app": {
+    "title": "NER SmartRoute AI",
+    "subtitle": "Digital Mobility Twin & Resilient Route Optimization for North-East India",
+    "live_status": "Core Active",
+    "data_mode_notice": "GIS Graph & ML models computed dynamically. Live weather and incident sensors active."
+  },
+  "nav": {
+    "dashboard": "Live Dashboard",
+    "smart_routes": "Route Planner",
+    "digital_twin": "Digital Twin",
+    "government": "Govt Analytics",
+    "incidents": "Hazard Monitor",
+    "settings": "Settings"
+  },
+  "planner": {
+    "title": "Smart Route Optimization",
+    "subtitle": "Multi-factor scoring considering terrain, weather, road quality, and risk",
+    "origin": "Origin City",
+    "destination": "Destination City",
+    "vehicle_type": "Vehicle Type",
+    "cargo": "Cargo Description",
+    "weight": "Weight (Tonnes)",
+    "monsoon": "Monsoon Season",
+    "peak_hour": "Peak Traffic Hours",
+    "find_route": "Find Optimal Routes",
+    "calculating": "Calculating Graph & ML Scores...",
+    "recommended": "Recommended Route",
+    "alternate": "Alternative Route",
+    "distance": "Distance",
+    "eta": "Estimated Time",
+    "risk": "Risk Level",
+    "accessibility": "Accessibility Score",
+    "cost": "Logistics Cost",
+    "no_route": "No path found between selected cities. Some roads may be blocked."
+  },
+  "twin": {
+    "title": "Digital Mobility Twin",
+    "subtitle": "Simulate natural hazards, evaluate logistics disruption, and trigger dynamic rerouting",
+    "select_road": "Target Highway Segment",
+    "disruption_type": "Hazard / Disruption Type",
+    "simulate_btn": "Simulate Disruption",
+    "reopen_all": "Reopen All Roads",
+    "affected_shipments": "Affected Shipments",
+    "impact_report": "Network Impact Assessment",
+    "accessibility_loss": "Accessibility Drop",
+    "reroute_status": "Rerouting Computed"
+  },
+  "gov": {
+    "title": "NER Highway Operations & Policy Dashboard",
+    "accessibility_index": "Network Accessibility Index",
+    "critical_corridors": "Critical Corridors",
+    "high_risk_roads": "High-Risk Segments",
+    "active_disruptions": "Roads Closed",
+    "corridor_breakdown": "Corridor Health Monitoring"
+  },
+  "chat": {
+    "title": "SmartRoute AI Assistant",
+    "subtitle": "Multilingual voice & text assistant",
+    "placeholder": "Ask route, weather, hazards, or simulate closure...",
+    "send": "Send",
+    "listening": "Listening...",
+    "speak": "Voice input",
+    "speech_unsupported": "Voice speech recognition is not supported in this browser."
+  }
+}
