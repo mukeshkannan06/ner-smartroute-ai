@@ -1,4 +1,9 @@
-export const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '') || (
+let rawBase = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+if (rawBase && !rawBase.endsWith('/api')) {
+  rawBase += '/api';
+}
+
+export const API_BASE = rawBase || (
   (typeof window !== 'undefined' && window.location.origin.includes('3000'))
     ? '/api'
     : 'http://localhost:8000/api'
