@@ -83,15 +83,38 @@ export function RoutePlanner() {
 
       {error && (
         <div style={{
-          padding: '10px 14px',
+          padding: '12px 14px',
           marginBottom: '16px',
           backgroundColor: 'var(--crimson-light)',
           color: 'var(--crimson)',
           borderRadius: 'var(--radius-sm)',
           fontSize: '12.5px',
           fontWeight: 500,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
         }}>
-          {error}
+          <div>{error}</div>
+          {(error.includes('Render') || error.includes('wake up') || error.includes('reach backend') || error.includes('timed out')) && (
+            <button
+              type="button"
+              onClick={handleCalculate}
+              disabled={calculating}
+              style={{
+                alignSelf: 'flex-start',
+                padding: '5px 12px',
+                fontSize: '11.5px',
+                fontWeight: 600,
+                color: '#fff',
+                backgroundColor: 'var(--forest-800)',
+                border: 'none',
+                borderRadius: 'var(--radius-sm)',
+                cursor: 'pointer',
+              }}
+            >
+              {calculating ? 'Retrying...' : 'Retry Calculation'}
+            </button>
+          )}
         </div>
       )}
 

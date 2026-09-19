@@ -162,6 +162,41 @@
   box-shadow: 0 0 8px var(--emerald);
 }
 
+.header-status-badge.waking {
+  background-color: var(--amber-light);
+  border-color: rgba(217, 155, 38, 0.35);
+}
+
+.status-dot.waking {
+  background-color: var(--amber);
+  box-shadow: 0 0 8px var(--amber);
+  animation: pulse-dot 1.5s infinite;
+}
+
+.header-status-badge.offline {
+  background-color: var(--crimson-light);
+  border-color: rgba(217, 74, 74, 0.35);
+}
+
+.status-dot.offline {
+  background-color: var(--crimson);
+  box-shadow: 0 0 8px var(--crimson);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .status-text {
   font-size: 11.5px;
   font-family: var(--font-mono);

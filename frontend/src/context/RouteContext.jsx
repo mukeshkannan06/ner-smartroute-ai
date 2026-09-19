@@ -10,6 +10,8 @@ export function RouteProvider({ children }) {
   const [incidents, setIncidents] = useState([]);
   const [govData, setGovData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [backendStatus, setBackendStatus] = useState('connecting'); // 'connecting' | 'online' | 'waking_up' | 'offline'
+  const [networkError, setNetworkError] = useState(null);
 
   // Active Route Planning State
   const [origin, setOrigin] = useState('Guwahati');
@@ -40,18 +42,26 @@ export function RouteProvider({ children }) {
   const refreshNetwork = async () => {
     try {
       setLoading(true);
+      setNetworkError(null);
+      setBackendStatus('connecting');
+
       const [nodesData, roadsData, incidentsData, dashData] = await Promise.all([
         fetchNodes(),
         fetchRoads(),
         fetchIncidents(),
         fetchGovDashboard(),
       ]);
+
       setNodes(nodesData || {});
       setRoads(roadsData || []);
       setIncidents(incidentsData || []);
       setGovData(dashData || null);
+      setBackendStatus('online');
     } catch (err) {
       console.error('Error fetching network GIS data:', err);
+      const isSleep = err.message?.includes('wake up') || err.message?.includes('Render');
+      setBackendStatus(isSleep ? 'waking_up' : 'offline');
+      setNetworkError(err.message || 'Failed to connect to backend server');
     } finally {
       setLoading(false);
     }
@@ -69,6 +79,8 @@ export function RouteProvider({ children }) {
         incidents,
         govData,
         loading,
+        backendStatus,
+        networkError,
         refreshNetwork,
         origin,
         setOrigin,
